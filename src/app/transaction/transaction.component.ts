@@ -20,12 +20,25 @@ export class TransactionComponent {
   // récu^pérer toutes les transactions
   transactions() {
     this.transactionList = this.service.fetchAllTransaction();
+    this.getSolde();
     return this.transactionList;
   }
 
   // formlaire
   onSubmit(form:NgForm) {
-    return this.service.add(form.value);
+    this.service.add(form.value);
+    this.getSolde();
   }
+
+  getSolde(){
+    this.transactionList.forEach(transaction => {
+      if(transaction.categorie.includes('entrée')){
+        this.solde += transaction.montant;
+      }else{
+        this.solde -= transaction.montant;
+      }
+    });
+  }
+
 
 }

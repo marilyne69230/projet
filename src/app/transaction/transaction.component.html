@@ -1,0 +1,73 @@
+<h1 class="text-center m-5">Gestion du budget</h1>
+
+<div class="m-5 text-center">
+    <button class="btn btn-outline-dark btn-lg" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <a class="text-decoration-none text-reset">Ajouter une transaction</a>
+    </button>
+</div>
+  
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="text-center" id="exampleModalLabel">Nouvelle transaction</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form #addForm="ngForm" (ngSubmit)="onSubmit(addForm)">
+            <div class="form-group">
+                <label for="input">ID : </label>
+                <input placeholder="id" type="number" class="m-3" name="id" ngModel required><br>
+            </div>
+            <div class="form-group">
+                <label for="input">Date : </label>
+                <input type="date" class="m-3" name="date" ngModel required><br>
+            </div>
+            <div class="form-group">
+                <label for="input">Catégorie :  </label>
+                <select name="categorie" class="form-select" aria-label="Default select example" ngModel required>
+                    <option value="entrée">Entrée</option>
+                    <option value="dépense">Dépense</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="input">Nom : </label>
+                <input placeholder="label" type="text" class="m-3" name="label" ngModel required><br>
+            </div>
+            <div class="form-group">
+                <label for="input">Montant : </label>
+                <input placeholder="montant" type="number" class="m-3" name="montant" ngModel required><br>
+            </div>
+            
+            <button type="submit" class="btn btn-primary m-3" data-bs-dismiss="modal">
+                    Ajouter
+            </button>
+        </form>
+    </div>
+    </div>
+</div>
+</div>  
+
+<h2 class="text-center m-5">Solde : </h2>
+
+    
+<table class="table w-75 mx-auto table table-striped border">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Date</th>
+            <th scope="col">Catégorie</th>
+            <th scope="col">Label</th>
+            <th scope="col">Montant</th>   
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let transaction of transactions()">
+            <th scope="row">{{transaction.id}}</th>
+            <td >{{transaction.date | date: 'longDate' }}</td>
+            <td>{{transaction.categorie}}</td>
+            <td>{{transaction.label}}</td>
+            <td>{{transaction.montant}}</td>
+        </tr>
+    </tbody>
+</table>
